@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { GeminiDto } from './dtos/gemini.dto';
 
 @Controller('/api')
 export class AppController {
@@ -10,13 +11,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/bye')
-  getBye(): string {
-    return 'Bye!';
-  }
-
   @Get('/gemini')
-  async getGeminiResponse(): Promise<string> {
-    return this.appService.getGeminiResponse();
+  async getGeminiResponse(@Body() body: GeminiDto): Promise<string> {
+    return this.appService.getGeminiResponse(body);
   }
 }
